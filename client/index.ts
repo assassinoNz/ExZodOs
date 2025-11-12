@@ -1,6 +1,7 @@
 import * as axios from "axios";
 import type { Api, ResponseCode, MethodByPath, Path, PathByMethod, ResponseBody, DefaultResponseBody, Method } from "../core/index.js";
 import type { ConfigParam } from "../core/client.js";
+import qs from "qs";
 
 export { axios };
 
@@ -93,12 +94,13 @@ export class ExZodOsClient<A extends Api> {
 
         //CASE: Config provided
         return {
-            ...configRest,
             method,
             url: configPath !== undefined ? this.replacePathParams(path, configPath) : path,
             headers: configHeader,
             params: configQuery,
-            data: configBody
+            paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "brackets" }),
+            data: configBody,
+            ...configRest
         } satisfies axios.AxiosRequestConfig;
     }
 }

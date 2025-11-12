@@ -1,6 +1,6 @@
 import express from "express";
 import { z } from "zod";
-import type { PathParams, RequestHandler } from "express-serve-static-core";
+import type { ParamsDictionary, PathParams, RequestHandler, Query } from "express-serve-static-core";
 import { METHODS } from "../core/index.js";
 import type { Api, Path } from "../core/index.js";
 import type { TypedRouter, RequestHandlerWithExtras, TypedRequestHandler } from "../core/router.js";
@@ -53,7 +53,7 @@ export class ExZodOsRouter {
                     try {
                         if (routeDescription.request.path !== undefined) {
                             //CASE: Has path params to validate
-                            req.params = routeDescription.request.path.parse(req.params);
+                            req.params = routeDescription.request.path.parse(req.params) as ParamsDictionary;
                         } else {
                             //CASE: No path params to validate. So params must be an empty object
                             req.params = z.object({}).parse(req.params);
@@ -61,7 +61,7 @@ export class ExZodOsRouter {
 
                         if (routeDescription.request.query !== undefined) {
                             //CASE: Has query params to validate
-                            req.query = routeDescription.request.query.parse(req.query);
+                            req.query = routeDescription.request.query.parse(req.query) as Query;
                         } else {
                             //CASE: No query params to validate. So query must be an empty object
                             req.query = z.object({}).parse(req.query);
