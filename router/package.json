@@ -1,5 +1,5 @@
 {
-    "name": "@assassinonz/exzodus-router",
+    "name": "@assassinonz/exzodos-router",
     "version": "0.0.1",
     "description": "Express router wrapper with end to end type safety",
     "main": "./build/router/index.js",

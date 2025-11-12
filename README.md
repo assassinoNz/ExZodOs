@@ -6,7 +6,7 @@ ExZodOs provides a type-safe Axios client wrapper and an Express router with aut
 
 Most of the end-to-end type-safe innovations like [tRPC](https://trpc.io/) and [Hono](https://hono.dev/) are built around code-first approach and custom solutions. But what if you want to manage your project with schema-first approach and code generation, with a widely used standard like [OpenAPI](https://www.openapis.org/).
 
-ExZodUs tries provide an end-to-end type-safe solution which require little to no project structure changes at all.
+ExZodOs tries provide an end-to-end type-safe solution which require little to no project structure changes at all.
 
 ## Who can use ExZodOs?
 
@@ -63,7 +63,7 @@ export const api = {
 
 ```typescript
 import { api } from "./api.ts";
-import { express, ExZodOsRouter } from "@assassinonz/exzodus-router";
+import { express, ExZodOsRouter } from "@assassinonz/exzodos-router";
 
 //Define extras if modification of request type is needed
 type Extras = {
@@ -116,7 +116,7 @@ const app = express();
 app.use(express.json());
 app.use("/api/v1", router);
 ```
-### 4. Using ExZodusClient
+### 4. Using ExZodOsClient
 Calling this API is now easy and has builtin autocomplete features :  
   
 ```typescript
