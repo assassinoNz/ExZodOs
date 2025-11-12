@@ -1,0 +1,17 @@
+{
+    "name": "exzodos",
+    "workspaces": [
+        "core",
+        "client",
+        "router"
+    ],
+    "scripts": {
+        "build:client": "npm run build --workspace=client",
+        "build:router": "npm run build --workspace=router",
+        "publish:client": "npm run build:client && npm publish --access=public --workspace=client",
+        "publish:router": "npm run build:router && npm publish --access=public --workspace=router"
+    },
+    "devDependencies": {
+        "typescript": "^5.9.3"
+    }
+}
