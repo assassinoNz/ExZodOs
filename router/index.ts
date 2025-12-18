@@ -1,10 +1,10 @@
 import express from "express";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 import type { ParamsDictionary, PathParams, RequestHandler, Query } from "express-serve-static-core";
 import { METHODS } from "../core/index.js";
-import type { Api, Path } from "../core/index.js";
-import type { TypedRouter, RequestHandlerWithExtras, TypedRequestHandler } from "../core/router.js";
-export { express, z, type RequestHandlerWithExtras, type TypedRequestHandler };
+import type { Api, Path } from "../core/index.ts";
+import type { TypedRouter, RequestHandlerWithExtras, TypedRequestHandler } from "../core/router.ts";
+export { express, z, ZodError, type RequestHandlerWithExtras, type TypedRequestHandler };
 
 /**
  * Api aware type-safe wrapper around express.Router() with server-side request and response validation
@@ -39,7 +39,9 @@ export class ExZodOsRouter {
             const originalHandlerRegistrar = router[method].bind(router);
 
             //Override the original handler registrar to register additional middleware
+            //eslint-disable-next-line @typescript-eslint/no-explicit-any
             router[method] = (path: PathParams, ...handlers: any[]) => {
+                //eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 const routeDescription = apiDef[path as Path<A>]?.[method] ?? undefined;
 
                 if (!routeDescription) {

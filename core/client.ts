@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import type { Api, EndpointRequest, MethodByPath, Path } from "./index.js";
+import type { Api, EndpointRequest, MethodByPath, Path } from "./index.ts";
 import type { axios } from "../client/index.ts";
 
 /**
@@ -38,4 +38,4 @@ type ClientConfig<A extends Api, M extends MethodByPath<A, P>, P extends Path<A>
  * Config parameter required by the Axios wrapper functions to make a request to the given endpoint.
  * This is for the added DX which allows omitting passing an empty config object when all keys are optional.
  */
-export type ConfigParam<A extends Api, M extends MethodByPath<A, P>, P extends Path<A>> = Partial<ClientConfig<A, M, P>> extends ClientConfig<A, M, P> ? [config?: ClientConfig<A, M, P>] : [config: ClientConfig<A, M, P>];
+export type ConfigParam<A extends Api, M extends MethodByPath<A, P>, P extends Path<A>> = Partial<ClientConfig<A, M, P>> extends ClientConfig<A, M, P> ? [config?: ClientConfig<A, M, P> & axios.AxiosRequestConfig] : [config: ClientConfig<A, M, P> & axios.AxiosRequestConfig];

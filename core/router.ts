@@ -1,16 +1,20 @@
 import type express from "express";
 import type { z } from "zod";
-import type { Api, DefaultResponseBody, EndpointRequest, MethodByPath, Path, PathByMethod, ResponseBody, ResponseCode } from "./index.js";
+import type { Api, DefaultResponseBody, EndpointRequest, MethodByPath, Path, PathByMethod, ResponseBody, ResponseCode } from "./index.ts";
 
 //Override express IRouterMatcher to accept TypedRouter instances in app.use() calls
 declare module "express-serve-static-core" {
     interface IRouterMatcher<
         T,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        Method extends "all" | "get" | "post" | "put" | "delete" | "patch" | "options" | "head" = any,
+        //eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+        Method extends "all" | "get" | "post" | "put" | "delete" | "patch" | "options" | "head" = any
     > {
-        // eslint-disable-next-line @typescript-eslint/prefer-function-type
-        (path: PathParams, ...handlers: (RequestHandlerParams | TypedRouter<never, unknown>)[]): T;
+        (path: PathParams, ...handlers: TypedRouter<never, unknown>[]): T;
+    }
+
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
+    interface IRouterHandler<T, Route extends string = string> {
+        (...handlers: RequestHandlerWithExtras<unknown>[]): T;
     }
 }
 
